@@ -9,7 +9,7 @@ const Feed = (props: Props) => {
   return (
     <div className="flex flex-col h-full py-6 space-y-8 ">
       <SongList />
-      <div>
+      <div className="flex justify-around">
         <NowPlaying />
         <MostPlayed />
       </div>
