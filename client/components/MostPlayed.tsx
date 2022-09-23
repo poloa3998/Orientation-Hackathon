@@ -56,8 +56,8 @@ const MostPlayed = (props: Props) => {
   }, [publicKey, connection, sendTransaction]);
   return (
     <div>
-      <button onClick={onClick} className="bg-blue-500">
-        Testing{' '}
+      <button onClick={onClick} disabled={!publicKey} className="bg-blue-500">
+        Testing
       </button>
     </div>
   );
