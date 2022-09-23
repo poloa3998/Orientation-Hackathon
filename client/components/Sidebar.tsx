@@ -2,6 +2,12 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import {
+  BsFillMoonStarsFill,
+  BsFillPlayCircleFill,
+  BsFillSunFill,
+  BsSpotify,
+} from 'react-icons/bs';
 type Props = {};
 
 const Sidebar = (props: Props) => {
@@ -16,41 +22,33 @@ const Sidebar = (props: Props) => {
 
     if (currentTheme === 'dark') {
       return (
-        <div className="" role="button" onClick={() => setTheme('light')}>
-          set light mode{' '}
+        <div
+          className="flex space-x-2"
+          role="button"
+          onClick={() => setTheme('light')}
+        >
+          <BsFillSunFill className="w-6 h-6" />
+          <p>Light Mode</p>
         </div>
       );
     } else {
       return (
         <div
-          className="dark:text-dark-secondary "
+          className="flex space-x-2"
           role="button"
           onClick={() => setTheme('dark')}
         >
-          Set dark mode
+          <BsFillMoonStarsFill className="w-6 h-6" />
+          <p>Dark Mode</p>
         </div>
       );
     }
   };
   return (
     <nav className="h-full border-0 border-x border-solid py-5 dark:border-zinc-800 dark:bg-dark-nav w-1/6">
-      <ul className="h-1/4 space-y-5 p-10">
-        {/*<Image
-          src={theme === 'dark' ? darkLogo.src : logo.src}
-          alt="logo"
-          width={50}
-          height={50}
-  />*/}
-        <li className="font-semibold">
-          <Link href="/">Solanify logo</Link>
-        </li>
-        <div className=" h-full flex flex-col justify-between dark:text-dark-secondary ">
-          <li className="list-none dark:hover:text-dark-primary">
-            <Link href="/paths">All Paths</Link>
-          </li>
-          <li className="list-none dark:hover:text-dark-primary">
-            <Link href="/about">About</Link>
-          </li>
+      <ul className="h-1/3 space-y-5 p-10">
+        <div className=" flex flex-col justify-between dark:text-dark-secondary ">
+          <li className="list-none dark:hover:text-dark-primary"></li>
           {renderThemeChanger()}
         </div>
       </ul>

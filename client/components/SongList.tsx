@@ -18,11 +18,10 @@ const SongList = () => {
       .then((response) => setSongs(response.albums.items))
       .catch((err) => console.error(err));
   }, []);
-  console.log(songs);
   return (
     <div className="flex flex-col h-1/2 w-full">
-      <h2 className=" text-3xl">Top Artists</h2>
-      <div className="flex h-1/2 w-full space-x-5">
+      <h2 className=" text-3xl mb-5">Top Artists</h2>
+      <div className="flex h-1/2 w-full space-x-5 pr-20">
         {songs.map((song: any) => {
           return (
             <div key={song.data.uri}>
