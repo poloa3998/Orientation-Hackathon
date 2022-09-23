@@ -50,6 +50,7 @@ const Sidebar = (props: Props) => {
         <div className=" flex flex-col justify-between dark:text-dark-secondary ">
           <li className="list-none dark:hover:text-dark-primary"></li>
           {renderThemeChanger()}
+          <Link href="/about" ><li className="list-none dark:hover:text-dark-primary pt-4">About</li></Link>
         </div>
       </ul>
     </nav>
