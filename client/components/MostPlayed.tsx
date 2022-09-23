@@ -7,13 +7,21 @@ import {
   Transaction,
   TransactionSignature,
 } from '@solana/web3.js';
-import React, { useCallback } from 'react';
-
-type Props = {};
-
-const MostPlayed = (props: Props) => {
+import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+const MostPlayed = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
+  const [albumInfo, setAlbumInfo] = useState<any>();
+  const [songs, setSongs] = useState([]);
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '451db8352cmsh67b08e26357b728p1e3e2ajsn2c667dd3d476',
+      'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
+    },
+  };
   const onClick = useCallback(async () => {
     if (!publicKey) {
       console.log({ type: 'error', message: `Wallet not connected!` });
@@ -54,11 +62,41 @@ const MostPlayed = (props: Props) => {
       return;
     }
   }, [publicKey, connection, sendTransaction]);
+  useEffect(() => {
+    const res = fetch(
+      'https://spotify23.p.rapidapi.com/albums/?ids=0zjbNtfnMLmt2q50E3wDx8',
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setAlbumInfo(response.albums[0]);
+        setSongs(response.albums[0].tracks.items);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+  const milliToMin = (time: number) => {
+    const date = new Date(time);
+    return `${date.getMinutes()}:${date.getSeconds()}`;
+  };
   return (
     <div>
-      <button onClick={onClick} disabled={!publicKey} className="bg-blue-500">
-        Testing
-      </button>
+      <div className="space-y-5">
+        {songs?.slice(0, 4).map((song: any) => {
+          return (
+            <div className="flex items-center space-x-5 dark:bg-[rgb(30,30,30)] border border-solid dark:border-zinc-700 max-w-sm rounded-md py-2 px-5">
+              <Image src={albumInfo?.images[2].url} height="64" width="64" />
+              <div className="flex space-x-5 text-sm items-center">
+                <p>{song.name}</p>
+                <p>{song.artists[0].name}</p>
+                <p>{milliToMin(song.duration_ms)}</p>
+                <button onClick={onClick} disabled={!publicKey}>
+                  <AiOutlineHeart className="" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
